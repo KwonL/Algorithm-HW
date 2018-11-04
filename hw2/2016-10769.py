@@ -21,19 +21,16 @@ def LCS(a, b):
     '''
     L = 0
     ##### Please write your code down here #####
+    i = len(a) - 1
+    j = len(b) - 1
 
-    pivot_b = 0
-    len_a = len(a)
-    len_b = len(b)
+    if i == -1 or j == -1 :
+        return L
+    elif a[i] == b[j] :
+        return LCS(a[:i], b[:j]) + 1
+    else :
+        return max(LCS(a[:i], b[:j+1]), LCS(a[:i+1], b[:j]))
 
-    for i in range(0, len_a) :
-        for j in range(pivot_b, len_b) :
-            if a[i] == b[j] :
-                L += 1
-
-                pivot_b = j + 1
-                break 
-        
     return L
 
 
