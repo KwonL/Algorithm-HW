@@ -25,6 +25,13 @@ def load_primes(txt_path):
     p_list = [p for p in all if 1000 <= p and p <= 9999]
     return p_list
 
+def get_diff_count(str1, str2) :
+    count = 0
+    for idx in range(len(str1)) :
+        if str1[idx] != str2[idx] :
+            count += 1
+
+    return count
 
 def adj_list(p_list):
     '''
@@ -39,6 +46,12 @@ def adj_list(p_list):
     edges = {}
     ##### Please write your code down here #####
 
+    for p in p_list :
+        edges[p] = list()
+        for q in p_list :
+            if get_diff_count(str(p), str(q)) == 1 :
+                edges[p].append(q)
+    
     return edges
 
 
