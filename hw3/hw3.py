@@ -65,7 +65,20 @@ def shortest_path(a, b, p_list):
     ##############################################################################
     '''
     n = 0
-    ##### Please write your code down here #####
+    graph = adj_list(p_list)
+    queue = []
+
+    queue.append([a])
+    while queue:
+        path = queue.pop(0)
+        node = path[-1]
+        if node == b:
+            n = len(path)
+            break;
+        for neighbor in list(graph[node]):
+            new = list(path)
+            new.append(neighbor)
+            queue.append(new)
 
     return n
 
