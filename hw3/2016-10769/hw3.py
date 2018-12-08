@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import argparse
+import copy
 
 
 def parse_args(p_list):
@@ -66,19 +67,29 @@ def shortest_path(a, b, p_list):
     '''
     n = 0
     graph = adj_list(p_list)
-    queue = []
+    queue = list() 
+    path = dict()
+    
+    queue.append(a) 
+    # init first node's path
+    path[a] = list()
+    
+    while len(queue) != 0 :
+        # pop the first element of queue
+        cur_node = queue.pop(0)
+        for adj in graph[cur_node] :
+            # If path already exists, then visited node.
+            if adj not in path.keys() :
+                path[adj] = copy.deepcopy(path[cur_node])
+                # Append itself and record path
+                path[adj].append(adj)
+                # We find it!
+                if adj == b :
+                    n = len(path[adj])
+                    return n
 
-    queue.append([a])
-    while queue:
-        path = queue.pop(0)
-        node = path[-1]
-        if node == b:
-            n = len(path)
-            break;
-        for neighbor in list(graph[node]):
-            new = list(path)
-            new.append(neighbor)
-            queue.append(new)
+                # appen self and go on.
+                queue.append(adj)
 
     return n
 
